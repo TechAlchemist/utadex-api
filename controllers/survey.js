@@ -1,26 +1,32 @@
 const Survey = require('../models/survey');
 
-async function getAllSurveys(req, res) {
-    console.log('getAllSurveys');
-    const allSurveyData = await Survey.find({});
-
-    res.json(allSurveyData);
-}
-
-async function createSurvey(req, res) {
-    console.log('createSurvey fired')
+function createSurvey(req, res) {
     const newSurvey = new Survey(req.body);
-    console.log(newSurvey)
     try {
-        await newSurvey.save();
-        console.log('Saving new survey. ');
+        newSurvey.save();
+        res.status(200).json({'status': 'successful'});
     }
     catch(error) {
-        return res.status(400).json(error);
+        return res.status(500).send({"message": "failed to create survey"});
     }
-    finally {
-        return res.status(200)
-    }
+}
+
+function getAllSurveys(req, res) {
+    Survey.find({}, (error, surveys) => {
+        return res.json(surveys);
+    });
+}
+
+function getSpecificSurvey(req, res) {
+
+}
+
+function updateSurvey(req, res) { 
+
+}
+
+function deleteSurvey(req, res) {
+    
 }
 
 module.exports = {

@@ -1,26 +1,32 @@
+// Training Intake Form Controller
+
 const Intake = require('../models/intake');
 
-async function getAllIntakeData(req, res) {
-    console.log('Fired here. ');
-    const allIntakeData = await Intake.find({});
-    
-    res.json(allIntakeData);
+function createIntake(req, res) {
+
 }
 
-// trainee signing intake form
-async function signIntake(req, res) {
-    const intakeSignature = new Intake(req.body);
-    console.log(intakeSignature)
-    try {
-        await intakeSignature.save();
-        console.log('signature saved')
-    }
-    catch(error) { // bad request; preceived client error
-        res.status(400).json(error);
-    }
+function getSingleIntake(req, res) {
+
+}
+
+function getSpecifiedBatchIntakes(req, res) {
+
+}
+
+function updateIntake(req, res) {
+
+}
+
+function deleteIntake(req, res) {
+
 }
 
 module.exports = {
-    getAllIntakeData,
-    signIntake
+    createIntake,
+    getSingleIntake,
+    getSpecifiedBatchIntakes,
+    updateIntake,
+    deleteIntake
+
 };
