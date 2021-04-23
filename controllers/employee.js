@@ -28,20 +28,23 @@ function getSingleEmployee(req, res) {
 }
 
 function updateEmployee(req, res) {
-    let id = req.params.id;
     if (!req.body) {
         return res.status(400).json({"Failure": "Request body was empty."});
     } 
     else {
-        Employee.findByIdAndUpdate(id, req.body, function(error, data) {
-            return res.status(200).json({"Success" : "Employee updated."})
+        Employee.findByIdAndUpdate(req.params.id, req.body, function(error, data) {
+            if (error) {
+                return res.status(500).json({"Failure": error})
+            }
+            else {
+                return res.status(200).json({"Success" : "Employee updated."})
+            }
         });
     }
 }
 
 function deleteEmployee(req, res) {
-    let id = req.params.id;
-    Employee.findByIdAndDelete(id, function(error, docs) {
+    Employee.findByIdAndDelete(req.params.id, function(error, docs) {
         if (error) {
             res.status(500).json({"Failure": "Failed to delete employee."});
         }
@@ -49,10 +52,6 @@ function deleteEmployee(req, res) {
             res.status(200).json({"Success": "Sucessfully deleted the employee."});
         }
     });
-}
-
-function validateCreation(body) {
-    console.log(body);
 }
 
 module.exports = {
