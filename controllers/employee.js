@@ -1,19 +1,16 @@
 const Employee = require('../models/employee');
 
 function createEmployee(req, res) {
-    // if (req.body != "{}") {
-    //     return res.status(400).json({"Failure": "Request body was empty."});
-    // }
-    // if (validateCreation(req.body)) {
-    //     return false;
-    // }
+    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        return res.status(400).json({"Failure": "Request body was empty."});
+    }
     const employee = new Employee(req.body);
     try {
         employee.save();
         return res.status(200).json({"Success": "Employee created."});
     }
     catch(error) {
-        return res.status(400).json({"Failure": "Failed to create employee."});
+        return res.status(500).json({"Failure": "Failed to create employee."});
     }
 }
 
