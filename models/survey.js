@@ -5,10 +5,11 @@ const Schema = mongoose.Schema;
 const surveySchema = new Schema({
     startTemp: Number,
     endTemp: Number,
-    startTime: Date,
-    endTime: Date,
+    startTime: String,
+    endTime: String,
     location: String,
     biologistPresent: [String],
+    leadBiologist: String,
     totalUta: Number,
     totalTigris: Number,
     totalGambelia: Number,

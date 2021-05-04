@@ -18,9 +18,9 @@ function createIntake(req, res) {
 
 function getSingleIntake(req, res) {
     Intake.findById(req.params.id, function(error, intake) {
-        if (error) return res.status(500).json({"Failure": "Internal error retrieving intake."});
+        if (error) return res.status(500).json({"Failure": "Error getting single intake."});
         return res.status(200).json(intake);
-    })
+    });
 }
 
 function getSpecifiedBatchIntakes(req, res) {
@@ -38,10 +38,15 @@ function getAllIntakes(req, res) {
 }
 
 function updateIntake(req, res) {
-    Intake.findByIdAndUpdate(req.params.id, function(error, intake) {
-        if (error) return res.status(500).json({"Failure": "Failed to update intake."});
-        return res.status(200).json({"Success": "Intake updated."});
-    });
+    if (!req.body) {
+        return res.status(400).json({"Failure": "Request body was empty."});
+    }
+    else {
+        Intake.findByIdAndUpdate(req.params.id, req.body, function(error, intake) {
+            if (error) return res.status(500).json({"Failure": "Failed to update intake."});
+            return res.status(200).json({"Success": "Intake updated."});
+        });
+    }
 }
 
 function deleteIntake(req, res) {

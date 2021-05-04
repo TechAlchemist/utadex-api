@@ -5,9 +5,13 @@ const Schema = mongoose.Schema;
 const locationSchema = new Schema({
     locationName: String,
     locationDescription: String,
-    typicalWorkKeyWords: [String],
+    keyWords: [String],
+    lat: String,
+    long: String,
     associatedCompany: String,
-    siteContact: String,
+    siteContactName: String,
+    siteContactEmail: String,
+    siteContactPhoneNumber: String,
     siteSpecificHazards: String
 
 },
